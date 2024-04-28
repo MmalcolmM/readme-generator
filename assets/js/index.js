@@ -3,10 +3,10 @@ const fs = require('fs');
 const inquirer = require('inquirer');
 const { type } = require('os');
 // const { type } = require('os');
-const renderLicenseBadge = require('./generateMarkdown');
+const renderLicenseBadge = require('./generateMarkdown'); // used to import the renderLicenseBage function from generateMarkDown.js then call the function on line 35 for the license
 
 
-const generateReadme = ({ title, description, installation, credits, license, usage, github, email, tests }) =>
+const generateReadme = ({ title, description, installation, credits, license, usage, github, email, tests }) =>  // create a function  to generate a readme with the values or varibles of title and so on. use template literal to add the README template
     `
 # ${title}
 
@@ -32,7 +32,7 @@ ${usage}
 ${credits}
   
 ## License
-${renderLicenseBadge(license)}
+${renderLicenseBadge(license)} 
   
 ## Questions
 
@@ -73,7 +73,7 @@ const questions = [
         message: ' List your collaborators, if any, with links to their GitHub profiles. If you used any third-party assets that require attribution, list the creators with links to their primary web presence in this section. If you followed tutorials, include links to those here as well.'
     },
     {
-        type: 'list',
+        type: 'list', // list question that works with the renderLicenseBadge to apply the selected license to the readme file pased on the suers selection
         name: 'license',
         message: 'Which license would you like to use?',
         choices: [
@@ -103,25 +103,32 @@ const questions = [
 
 
 // TODO: Create a function to write README file
+// Function to write data to a file
 function writeToFile(fileName, data) {
-    // console.log(readmeContent);
+    // Write data to the specified file
     fs.writeFile(fileName, data, (err) => {
+        // Handle any errors that occur during writing
         if (err) {
             console.error(err);
             return;
         } else {
+            // Log a message if the file was successfully saved
             console.log(`File ${fileName} has been saved.`);
         }
     });
 }
-// TODO: Create a function to initialize app
+
+// Function to initialize the application
 function init() {
+    // Prompt the user with questions
     inquirer.prompt(questions).then((answers) => {
+        // Generate README content based on user answers
         const readmeContent = generateReadme(answers);
         console.log(readmeContent);
-
-        writeToFile('README.md', readmeContent)
-    })
+        
+        // Write the generated README content to a file
+        writeToFile('README.md', readmeContent);
+    });
 }
 
 // Function call to initialize app

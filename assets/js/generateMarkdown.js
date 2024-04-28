@@ -11,7 +11,7 @@ function renderLicenseBadge(license) {
     return '';
     }
   }
-module.exports = renderLicenseBadge;
+module.exports = renderLicenseBadge; // used to export thr renderLicenseBadge function to index.js. if license selected in the prompt is MIT render the badge and the link to the license
 
 
 // TODO: Create a function that returns the license link
